@@ -2,6 +2,7 @@ import csv
 import json
 import time
 import re
+
 csvfile = open('stories.csv', 'r')
 jsonfile = open('stories.json', 'w')
 
