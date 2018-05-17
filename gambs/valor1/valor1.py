@@ -46,7 +46,11 @@ def ator_from_url(url):
     except:
         with open('atores_removidos', 'a') as arquivo_removidos:
             arquivo_removidos.write(url+'\n')
-            return False
+            seguidores = 0
+            posts = 0
+            seguindo = 0
+            nomereal = ator
+        return Ator(name=ator, pos=posts, segu=seguidores, segnd=seguindo, nr=nomereal)
 
     seguidores = int(re.findall(r'edge_followed_by":\{"count":(\d+)', html)[0])
     posts = int(re.findall(r'"edge_owner_to_timeline_media":\{"count":(\d+)', html)[0])
@@ -69,24 +73,28 @@ def main(debug=False, path='/csv'):
             urls.append(linha[:-1])  # Retira a quebra de linha
 
     with codecs.open(path + 'atores_dados ' + (NOW.strftime("%d-%m-%y-%H:%M")) + '.csv', 'w',
-                     "utf-8") as arquivo_dados:
+                     "utf-8") as arquivo_dados: 
         arquivo_dados.write('Nome real da conta,Conta,Seguidores,Seguindo,Postagens\n')
 
         for url in urls:
             print(url)
             ator = ator_from_url(url)
 
-            if ator:
+            if ator.seg !=0:
                 string = (fix_str(ator.real) + ',' + 'https://www.instagram.com/' +
                           fix_str(ator.nome) + '/,' + str(ator.seg) + ',' + str(ator.segn) + ',' +
                           str(ator.post) + '\n')
                 arquivo_dados.write(string)
                 valid_urls.append(url)
+            else:
+                arquivo_dados.write(ator.real+';'+'/s' + ';' + '/s' + ';' +'/s'+ ';' + '/s'  +'\n')
+                valid_urls.append(url)
+
 
     # Atualizar a lista mantendo APENAS os links validos
-    with open('atores_lista', 'w') as arquivo_dados:
-        for url in valid_urls:
-            arquivo_dados.write(url+'\n')
+#    with open('atores_lista', 'w') as arquivo_dados:
+ #       for url in valid_urls:
+  #          arquivo_dados.write(url+'\n')
 
     if not debug: # Nao remover se quiser debugar :)
         try:
