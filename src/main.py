@@ -5,9 +5,11 @@ import os
 import datetime
 import codecs
 import wget
-from dict_gambs import utf8_to_utf8_right as fix_str
+from dict import utf8_to_utf8_right as fix_str
+from flask import Flask
 
 NOW = datetime.datetime.now()
+app = Flask(__name__)
 
 class Ator(object):
     """ Seta os dados do ator """
@@ -54,7 +56,11 @@ def ator_from_url(url):
     nomereal = re.findall(r'"full_name":"(.*?")', html)[0][:-1]
     return Ator(name=ator, pos=posts, segu=seguidores, segnd=seguindo, nr=nomereal)
 
-def main(debug=False, folder='csv'):
+@app.route("/")
+def hello():
+    return "Hello World."
+
+def main(debug=False, folder='../csv'):
     """ Monta a lista de urls usada para extrair as informcoes """
     try:
         os.system("rm *.html")

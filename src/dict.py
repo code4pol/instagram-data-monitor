@@ -1,4 +1,4 @@
-""" Docstring for dict_gambs """
+""" Docstring for dict """
 import re
 
 DIGITO = {}
