@@ -101,10 +101,10 @@ def main(debug=False, folder='../csv'):
                 valid_urls.append(url)
 
 
-    # Atualizar a lista mantendo APENAS os links validos
-#    with open('atores_lista', 'w') as arquivo_dados:
- #       for url in valid_urls:
-  #          arquivo_dados.write(url+'\n')
+   #  Atualizar a lista mantendo APENAS os links validos
+   # with open('atores_lista', 'w') as arquivo_dados:
+   #     for url in valid_urls:
+   #         arquivo_dados.write(url+'\n')
 
     if not debug: # Nao remover se quiser debugar :)
         try:
