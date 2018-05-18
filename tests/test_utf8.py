@@ -1,5 +1,5 @@
 import unittest
-from gambs.valor1.dict_gambs import utf8_to_utf8_right
+from src.dict import utf8_to_utf8_right
 
 class TesteAtor(unittest.TestCase):
 	def teste_kahlo(self):
