@@ -1,1 +1,1 @@
-web: python gambs/valor1/valor1:main
+web: gunicorn __init__:app
