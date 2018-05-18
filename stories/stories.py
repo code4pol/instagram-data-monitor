@@ -110,25 +110,6 @@ class InstagramScraper(object):
                 return response
             except (KeyboardInterrupt):
                 raise
-            except (requests.exceptions.RequestException, PartialContentException) as e:
-                if 'url' in kwargs:
-                    url = kwargs['url']
-                elif len(args) > 0:
-                    url = args[0]
-                if retry < MAX_RETRIES:
-                    self.logger.warning('Retry after exception {0} on {1}'.format(repr(e), url))
-                    self.sleep(retry_delay)
-                    retry_delay = min( 2 * retry_delay, MAX_RETRY_DELAY )
-                    retry = retry + 1
-                    continue
-                else:
-                    keep_trying = self._retry_prompt(url, repr(e))
-                    if keep_trying == True:
-                        retry = 0
-                        continue
-                    elif keep_trying == False:
-                        return
-                raise
     
     def get_json(self, *args, **kwargs):
         """Retrieve text from url. Return text as string or None if no data present """
@@ -330,27 +311,19 @@ class InstagramScraper(object):
         return users
 
 def main(folder = '/stories/'):
-    parser = argparse.ArgumentParser()
+    args = argparse.ArgumentParser()
 
-    parser.add_argument('username', help='Instagram user(s) to scrape', nargs='*')
-    parser.add_argument('--destination', '-d', default='./', help='Download destination')
-    parser.add_argument('--login-user', '--login_user', '-u', default=None, help='Instagram login user', required=True)
-    parser.add_argument('--login-pass', '--login_pass', '-p', default=None, help='Instagram login password', required=True)
-    parser.add_argument('--filename', '-f', help='Path to a file containing a list of users to scrape')
+    args.add_argument('username')
+    args.add_argument('--login-user', '--login_user', '-u')
+    args.add_argument('--login-pass', '--login_pass', '-p')
+    args.add_argument('--filename', '-f')
   
-    args = parser.parse_args()
-
-
-    if args.filename:
-        args.usernames = InstagramScraper.parse_file_usernames(args.filename)
-    else:
-        args.usernames = InstagramScraper.parse_delimited_str(','.join(args.username))
-
-
+    args.filename = 'ig_users.txt'
+    args.login_user = 'instagramagile@gmail.com'
+    args.login_pass = 'instagramagile12018'
+    args.usernames = InstagramScraper.parse_file_usernames(args.filename)
     scraper = InstagramScraper(**vars(args))
-
     scraper.login()
-
     scraper.scrape(folder)
 
 
