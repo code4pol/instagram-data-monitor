@@ -5,7 +5,7 @@ import os
 import datetime
 import codecs
 import wget
-from dict import utf8_to_utf8_right as fix_str
+from src.dict import utf8_to_utf8_right as fix_str
 from flask import Flask
 
 NOW = datetime.datetime.now()
