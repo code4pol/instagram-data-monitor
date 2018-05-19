@@ -5,11 +5,8 @@ import datetime
 import codecs
 import wget
 from src.dict import utf8_to_utf8_right as fix_str
-from flask import Flask
 
 NOW = datetime.datetime.now()
-app = Flask(__name__)
-
 
 class Ator(object):
     """ Seta os dados do ator """
@@ -60,10 +57,6 @@ def ator_from_url(url):
     nomereal = re.findall(r'"full_name":"(.*?")', html)[0][:-1]
     return Ator(name=ator, pos=posts, segu=seguidores, segnd=seguindo, nr=nomereal)
 
-@app.route("/")
-def hello():
-    return "Oĺá! Funcionando corretamente."
-
 def main(debug=False, folder='../csv'):
     """ Monta a lista de urls usada para extrair as informcoes """
     try:
@@ -99,7 +92,6 @@ def main(debug=False, folder='../csv'):
             else:
                 arquivo_dados.write(ator.real+';'+'/s' + ';' + '/s' + ';' +'/s'+ ';' + '/s'  +'\n')
                 valid_urls.append(url)
-
 
    #  Atualizar a lista mantendo APENAS os links validos
    # with open('atores_lista', 'w') as arquivo_dados:
