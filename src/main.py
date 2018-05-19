@@ -1,5 +1,4 @@
 """ Arquivo principal do projeto """
-from __future__ import print_function
 import re
 import os
 import datetime
@@ -10,6 +9,7 @@ from flask import Flask
 
 NOW = datetime.datetime.now()
 app = Flask(__name__)
+
 
 class Ator(object):
     """ Seta os dados do ator """
@@ -62,7 +62,7 @@ def ator_from_url(url):
 
 @app.route("/")
 def hello():
-    return "Hello World."
+    return "Oĺá! Funcionando corretamente."
 
 def main(debug=False, folder='../csv'):
     """ Monta a lista de urls usada para extrair as informcoes """
