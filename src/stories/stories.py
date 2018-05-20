@@ -164,18 +164,23 @@ class InstagramScraper(object):
         return 0
 
 
-    def scrape(self, folder ):
+    def scrape(self, file ):
         """Crawls through and downloads user's media"""
         agora = datetime.now()
-        nome = str(agora.day)+'-'+str(agora.month)+'-'+str(agora.year)
+        data = str(agora.day)+'-'+str(agora.month)+'-'+str(agora.year)
         
         if not os.path.exists('stories'):
             os.makedirs('stories')
 
-        try:
+        if file =='':
+            file = 'stories'+data+'.csv'
 
-            arquivo = open('./stories/'+'stories'+nome+'.csv', 'w')
-            arquivo.write('username'+','+'Data'+','+'stories'+'\n')
+        else:
+            file=file+'file'+'.csv'
+
+        try:
+            arquivo = open('./stories/'+file, 'a')
+            arquivo.write('username'+';'+'Data'+';'+'stories'+'\n')
             arquivo.close()
             for username in self.usernames:
                 self.posts = []
@@ -183,7 +188,7 @@ class InstagramScraper(object):
                 greatest_timestamp = 0
                 future_to_item = {}
 
-                dst = folder
+                dst = file
 
                 # Get the user metadata.
                 shared_data = self.get_shared_data(username)
@@ -203,10 +208,10 @@ class InstagramScraper(object):
             print(iter.total)
             agora = datetime.now()
 
-            arquivo = open('./stories/'+'stories'+str(agora.day)+'-'+str(agora.month)+'-'+str(agora.year)+'.csv', 'a')
+            arquivo = open('./stories/'+dst, 'a')
 
-            arquivo.write(username+','+str(agora.day)+'/'+str(agora.month)+'/'+str(agora.year)+'-'+
-            	str(agora.hour)+':'+str(agora.minute)+','+str(iter.total)+'\n')
+            arquivo.write(username+';'+str(agora.day)+'/'+str(agora.month)+'/'+str(agora.year)+'-'+
+            	str(agora.hour)+':'+str(agora.minute)+';'+str(iter.total)+'\n')
             arquivo.close()
 
     def get_shared_data(self, username=''):
@@ -310,9 +315,9 @@ class InstagramScraper(object):
 
         return users
 
-def main(folder = '/stories/'):
+def main():
     args = argparse.ArgumentParser()
-
+    file = input('digite o nome do arquivo que deseja salvar os dados'+'\n'+'(se deixar em branco será gerado um arquivo com data e hora da coleta):'+'\n')
     args.add_argument('username')
     args.add_argument('--login-user', '--login_user', '-u')
     args.add_argument('--login-pass', '--login_pass', '-p')
@@ -324,7 +329,7 @@ def main(folder = '/stories/'):
     args.usernames = InstagramScraper.parse_file_usernames(args.filename)
     scraper = InstagramScraper(**vars(args))
     scraper.login()
-    scraper.scrape(folder)
+    scraper.scrape(file)
 
 
 if __name__ == '__main__':
