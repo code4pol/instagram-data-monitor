@@ -4,7 +4,7 @@ import os
 import datetime
 import codecs
 import wget
-from src.dict import utf8_to_utf8_right as fix_str
+from dict import utf8_to_utf8_right as fix_str
 
 NOW = datetime.datetime.now()
 
