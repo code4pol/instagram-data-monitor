@@ -111,3 +111,6 @@ tmp/
 
 # antiga pasta usada para a api do instagram
 api/
+
+# Compilation files
+__pycache__
