@@ -1,1 +1,1 @@
-from converter.main import CSVConverter
+from converter.main import FileConverter
