@@ -176,7 +176,7 @@ class InstagramScraper(object):
             file = 'stories'+data+'.csv'
 
         else:
-            file=file+'file'+'.csv'
+            file=file+'.csv'
 
         try:
             arquivo = open('./stories/'+file, 'a')
