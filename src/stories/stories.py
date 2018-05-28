@@ -164,22 +164,25 @@ class InstagramScraper(object):
         return 0
 
 
-    def scrape(self, file ):
+    def scrape(self, file , folder='./csv/'):
         """Crawls through and downloads user's media"""
         agora = datetime.now()
         data = str(agora.day)+'-'+str(agora.month)+'-'+str(agora.year)
         
-        if not os.path.exists('stories'):
-            os.makedirs('stories')
+        # if not os.path.exists('stories'):
+        #     os.makedirs('stories')
+
+        if not os.path.exists('csv'):    # Pasta para os csv
+            os.makedirs('csv')            
 
         if file =='':
-            file = 'stories'+data+'.csv'
+            file = folder + 'stories' +data+'.csv'
 
         else:
             file=file+'file'+'.csv'
 
         try:
-            arquivo = open('./stories/'+file, 'a')
+            arquivo = open(file, 'a')
             arquivo.write('username'+';'+'Data'+';'+'stories'+'\n')
             arquivo.close()
             for username in self.usernames:
@@ -208,7 +211,7 @@ class InstagramScraper(object):
             print(iter.total)
             agora = datetime.now()
 
-            arquivo = open('./stories/'+dst, 'a')
+            arquivo = open('./'+dst, 'a')
 
             arquivo.write(username+';'+str(agora.day)+'/'+str(agora.month)+'/'+str(agora.year)+'-'+
             	str(agora.hour)+':'+str(agora.minute)+';'+str(iter.total)+'\n')
@@ -333,4 +336,8 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except:
+        main()
+    

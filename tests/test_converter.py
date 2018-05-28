@@ -1,24 +1,38 @@
 import unittest
 from converter import CSVConverter
 
-class TestConverter(unittest.TestCase):
+class TestCSVConverter(unittest.TestCase):
 	
+    path = './resources/test_files/'
     converter = CSVConverter()
 
-    def test_get_all_files_names_path_with_type_for_txt_in_root(self):
-        self.assertEqual(self.converter.__get_all_files_names_path_with_type__('./*.txt'),['./requirements.txt'])
+    ##########
+    # Test convert CSV
+    ##########
 
-    def test_get_all_files_names_path_with_type_for_csv_in_root(self):
-        self.assertEqual(self.converter.__get_all_files_names_path_with_type__('./*.csv'), [])
+    def test_convert_empty_csv(self):
+        self.assertEqual(self.converter.convert_to_json(self.path + \
+                         'empty.csv'), [])
 
-    def test_get_all_files_names_path_with_type_for_json_in_root(self):
-        self.assertEqual(self.converter.__get_all_files_names_path_with_type__('./*.json'), [])
+    def test_convert_one_field_csv(self):
+        self.assertEqual(self.converter.convert_to_json(self.path + \
+                         'one_field.csv'), ['{"nome": "joao"}'])
 
-    def test_field_name_for_file_with_txt_file(self):
-        self.assertEqual(self.converter.__field_name_for_file__('./requirements.txt'), ['decorator==4.0.11'])
+    def test_convert_one_field_csv_with_various_data(self):
+        self.assertEqual(self.converter.convert_to_json(self.path + \
+                         'one_field_with_multiple_lines_of_data.csv'), \
+                          ['{"nome": "joao"}', '{"nome": "jose"}', \
+                          '{"nome": "maria"}'])
 
-    def test_field_name_for_file_with_readme_file(self):
-        self.assertEqual(self.converter.__field_name_for_file__('./README.md'), ['# Monitor de Dados do Instagram'])
+    def test_convert_multiple_fields_csv(self):
+        self.assertEqual(self.converter.convert_to_json(self.path + \
+                         'multiple_fields.csv'), \
+                         ['{"nome": "maria", "idade": "21", "sexo": "feminino"}'])
 
-    def test_field_name_for_file_with_python_file(self):
-        self.assertEqual(self.converter.__field_name_for_file__('./__init__.py'), ['from src.flask.main import app'])
+    def test_convert_multiple_fields_csv_with_various_data(self):
+        self.assertEqual(self.converter.convert_to_json(self.path + \
+                         'multiple_fields_with_multiple_lines_of_data.csv'), \
+                          ['{"nome": "joao", "idade": "17", "sexo": "m"}', \
+                          '{"nome": "jose", "idade": "30", "sexo": "m"}', \
+                          '{"nome": "maria", "idade": "21", "sexo": "f"}'])
+        
