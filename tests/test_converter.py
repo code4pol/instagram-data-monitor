@@ -35,4 +35,15 @@ class TestCSVConverter(unittest.TestCase):
                           ['{"nome": "joao", "idade": "17", "sexo": "m"}', \
                           '{"nome": "jose", "idade": "30", "sexo": "m"}', \
                           '{"nome": "maria", "idade": "21", "sexo": "f"}'])
+
+    def test_convert_multiple_fields_in_semicolon_csv(self):
+        self.assertEqual(self.converter.convert_to_json(self.path + \
+                         'multiple_fields.csv'), \
+                         ['{"nome": "maria", "idade": "21", "sexo": "feminino"}'])
         
+    def test_convert_multiple_fields_in_semicolon_csv_with_various_data(self):
+        self.assertEqual(self.converter.convert_to_json(self.path + \
+                         'multiple_fields_with_multiple_lines_of_data.csv'), \
+                          ['{"nome": "joao", "idade": "17", "sexo": "m"}', \
+                          '{"nome": "jose", "idade": "30", "sexo": "m"}', \
+                          '{"nome": "maria", "idade": "21", "sexo": "f"}'])
