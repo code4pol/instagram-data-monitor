@@ -1,7 +1,5 @@
 import csv
 import json
-import glob
-import re
 import os
 
 class CSVConverter:

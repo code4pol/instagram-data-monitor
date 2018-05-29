@@ -1,9 +1,9 @@
 import unittest
-from converter import CSVConverter
+from file import CSVConverter
 
 class TestCSVConverter(unittest.TestCase):
 	
-    path = './resources/test_files/'
+    path = './resources/test_files/converter/'
     converter = CSVConverter()
 
     ##########
