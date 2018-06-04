@@ -4,7 +4,7 @@ import os
 import datetime
 import codecs
 import wget
-from src.dict import utf8_to_utf8_right as fix_str
+from dict import utf8_to_utf8_right as fix_str
 
 NOW = datetime.datetime.now()
 
@@ -57,7 +57,7 @@ def ator_from_url(url):
     nomereal = re.findall(r'"full_name":"(.*?")', html)[0][:-1]
     return Ator(name=ator, pos=posts, segu=seguidores, segnd=seguindo, nr=nomereal)
 
-def main(debug=False, folder='./atores_dados/csv/'):
+def main(debug=False, folder='../Dados/dados_gerais/csv/'):
     """ Monta a lista de urls usada para extrair as informcoes """
     try:
         os.system("rm *.html")
