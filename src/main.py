@@ -57,7 +57,7 @@ def ator_from_url(url):
     nomereal = re.findall(r'"full_name":"(.*?")', html)[0][:-1]
     return Ator(name=ator, pos=posts, segu=seguidores, segnd=seguindo, nr=nomereal)
 
-def main(debug=False, folder='./atores_dados/csv/'):
+def main(debug=False, folder='../Dados/dados_gerais/csv/'):
     """ Monta a lista de urls usada para extrair as informcoes """
     try:
         os.system("rm *.html")
