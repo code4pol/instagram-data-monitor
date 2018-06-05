@@ -35,7 +35,7 @@ Caso dê algum erro de permissão, execute o comando acima precedido pela expres
 		2. A partir dess ponto, entre pasta *dados_gerais* e depois na pasta *csv*.
 		3. Delete o último arquivo criado.
 		4. Volte ao *terminal* e entre novamente o nome do arquivo para guardar os dados.
-	Caso queira abortar o programa em algum momento, pressione as teclas *Ctrl*/*Command* e, com elas pressionadas, pressione *c*.
+	Caso queira abortar o programa em algum momento, pressione as teclas *Ctrl*/*Command* e, com elas pressionadas, pressione a tecla *C*.
 
 ## Rodando no docker
 	
@@ -48,4 +48,9 @@ Isso irá gerar uma imagem, a qual será usada sempre que se deseja rodar a apli
 ```shell
 	docker-compose run insta bash
 ```
-Isso irá iniciar um (*container*)[]. A partir deste container, basta seguir as instruções de como rodar os coletores de dados normalmente, conforme expicado nas seções **Como rodar o coletor de dados do Instagram** e **Como rodar o coletor de stories do Instagram**.
+Isso irá iniciar um (*container*)[]. A partir deste container, basta seguir as instruções de como rodar os coletores de dados normalmente, conforme expicado nas seções **Como rodar o coletor de dados do Instagram** e **Como rodar o coletor de stories do Instagram**. Os dados ficarão armazenados nas mesmas pastas que ficariam caso o não fossem rodados os coletores via docker.  
+Para sair do conteiner, digite o comando 
+```shell
+	exit
+```
+ou mantenha pressionado a tecla *Ctrl*/*Cmd* e, enquanto isso, aperte a tecla *D*.
