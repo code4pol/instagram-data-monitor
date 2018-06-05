@@ -1,0 +1,6 @@
+version: '3'
+services:
+  insta:
+    image: insta:1
+    volumes:
+        - $PWD/instagram-data-monitor/:/usr/app/
