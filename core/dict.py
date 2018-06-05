@@ -64,8 +64,7 @@ DIC = DIGITO # Apenas um alias, para ficar mais mnemonico
 
 # Constante para somar com o inicio: 6
 
-def utf8_to_utf8_right(string):
-    """ Docstring for function utf8_to_utf8_right """
+def to_utf8(string):
     idx = []
     iterator = re.finditer('\\\\u....', string)
     idx = [i.start() for i in iterator]
