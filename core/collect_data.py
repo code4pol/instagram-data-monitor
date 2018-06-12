@@ -12,6 +12,9 @@ TODAY = str(NOW.day).zfill(2) + '-' + str(NOW.month).zfill(2) + '-' + str(NOW.ye
 CSV_ACTORS_PATH = './resources/csv/' + TODAY + '/data/' 
 DATA_PATH = './src/'
 
+EXISTENT_ACTORS = 'atores_lista'
+NONEXISTENT_ACTORS = 'actores_removidos'
+
 def actor_from_url(url):
     actor_url = exists_url(url)
     delete_all_html()
@@ -30,15 +33,16 @@ def download_html(url, actor):
         html = open(wget.download(url=url, out=actor+".html"), 'r').read()
         return html
     except:
-        with open(DATA_PATH + 'actores_removidos', 'a') as rmv_actors_file:
-            rmv_actors_file.write(url+'\n')
-            followers = 0
-            posts = 0
-            following = 0
-            fullname = actor
-        return Actor(actor, posts, followers, following, fullname)
+        with open(DATA_PATH + NONEXISTENT_ACTORS, 'a') as rmv_actors_file:
+            rmv_actors_file.write(url + '\n')
+            rmv_actors_file.close()
+            remove_actor_from_list(url)
+
 
 def parser(html, actor):
+    if html == None:
+        return None
+
     followers = int(re.findall(r'edge_followed_by":\{"count":(\d+)', html)[0])
     posts = int(re.findall(r'"edge_owner_to_timeline_media":\{"count":(\d+)', html)[0])
     following = int(re.findall(r'"edge_follow":\{"count":(\d+)', html)[0])
@@ -57,11 +61,23 @@ def create_folder():
 
 def return_list_of_actors():
     actors = []
-    with open(DATA_PATH + 'atores_lista', 'r') as list_file:
+    with open(DATA_PATH + EXISTENT_ACTORS, 'r') as list_file:
         for line in list_file:
             actors.append(line[:-1])
 
     return actors
+
+def remove_actor_from_list(url):
+    file = open(DATA_PATH + EXISTENT_ACTORS, 'r')
+    urls = file.readlines()
+    file.close()
+    file = open(DATA_PATH + EXISTENT_ACTORS, 'w')
+    for line in urls:
+        if line != url + '\n':
+            file.write(line)
+
+    file.close()
+
 
 def write_in_file(filename, data):
     with codecs.open(CSV_ACTORS_PATH + filename + '.csv', 'w', "utf-8") as file:
@@ -81,6 +97,10 @@ def collect_data():
 
     for actor in actors:
         actor_data = actor_from_url(actor)
+
+        if actor_data == None:
+            continue
+
         write_in_file(actor_data.name, actor_data)
 
     delete_all_html()
