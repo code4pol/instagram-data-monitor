@@ -73,7 +73,7 @@ def write_in_file(filename, data):
         file.write(string)
         file.close()
 
-def collect():
+def collect_data():
     delete_all_html()
     create_folder()
     

@@ -40,6 +40,6 @@
 # for csv in stories_csv:
 #     convert(csv)
 
-from core import collect
+from core import collect_data
 
-collect()
+collect_data()
