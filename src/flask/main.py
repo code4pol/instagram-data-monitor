@@ -20,7 +20,7 @@ def actor_name_json(actor_name):
 def actor_list():
 	h = {}
 	h['actors'] = []
-	with open('../atores_lista', 'r') as f:
+	with open('./src/atores_lista', 'r') as f:
 		for l in f:
 			h['actors'].append(l.split('/')[-2])
 	return json.dumps(h)
