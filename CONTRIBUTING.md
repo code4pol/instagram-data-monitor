@@ -111,7 +111,7 @@ Para verificar o relatório da cobertura a partir de um determinado arquivo,
 execute:
 
 ```
-$ coverage run -m [modulo do arquivo].[arquivo sem .py] && coverage report -m
+$ coverage run --omit=venv/*,*__init__.py -m [modulo do arquivo].[arquivo sem .py] && coverage report -m
 ```
 
 
