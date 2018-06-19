@@ -1,5 +1,6 @@
 # MacOS
 .DS_Store
+.vscode/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -102,3 +103,15 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# pycharm
+.idea/
+
+# pasta de teste para rápida prototipação
+tmp/
+
+# antiga pasta usada para a api do instagram
+api/
+
+# Compilation files
+__pycache__
